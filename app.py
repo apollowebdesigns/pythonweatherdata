@@ -10,14 +10,11 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://userddata.firebaseio.com'
 })
 
-# Import database module.
-from firebase_admin import db, initialize_app, credentials
-
 # Get a database reference to our blog.
-ref = db.reference('server/saving-data/fireblog')
+ref = db.reference('test')
 
 users_ref = ref.child('users')
-users_ref.set({
+ref.set({
     'alanisawesome': {
         'date_of_birth': 'June 23, 1912',
         'full_name': 'Alan Turing'
