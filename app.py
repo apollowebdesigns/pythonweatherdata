@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from sense_hat import SenseHat
+import datetime
 sense = SenseHat()
 sense.clear()
 
@@ -24,3 +25,17 @@ ref.set({
     'temperature': str(temp),
     'humidity': str(humidity)
 })
+
+def writeNewPost(uid, username, picture, title, body):
+    # A post entry.
+    postData = {
+        'time': str(datetime.datetime.utcnow()),
+        'pressure': str(pressure),
+        'temperature': str(temp),
+        'humidity': str(humidity)
+    }
+
+    #  Get a key for a new Post.
+    newPostKey = ref.push().key
+
+    return ref.update(postData)
