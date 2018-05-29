@@ -1,6 +1,13 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+from sense_hat import SenseHat
+sense = SenseHat()
+sense.clear()
+
+pressure = sense.get_pressure()
+temp = sense.get_temperature()
+humidity = sense.get_humidity()
 
 # needs to be path to the certificate
 cred = credentials.Certificate('serviceAccountKey.json')
@@ -13,12 +20,7 @@ firebase_admin.initialize_app(cred, {
 # Get a database reference to our blog.
 ref = db.reference('test')
 ref.set({
-    'alanisawesome': {
-        'date_of_birth': 'June 23, 1912',
-        'full_name': 'Alan Turing'
-    },
-    'gracehop': {
-        'date_of_birth': 'December 9, 1906',
-        'full_name': 'Grace Hopper'
-    }
+    'pressure': str(pressure),
+    'temperature': str(temp),
+    'humidity': str(humidity)
 })
