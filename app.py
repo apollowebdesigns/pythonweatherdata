@@ -12,8 +12,6 @@ firebase_admin.initialize_app(cred, {
 
 # Get a database reference to our blog.
 ref = db.reference('test')
-
-users_ref = ref.child('users')
 ref.set({
     'alanisawesome': {
         'date_of_birth': 'June 23, 1912',
