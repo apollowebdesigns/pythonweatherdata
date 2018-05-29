@@ -1,5 +1,17 @@
-# Import database module.
+import firebase_admin
+from firebase_admin import credentials
 from firebase_admin import db
+
+# needs to be path to the certificate
+cred = credentials.Certificate('serviceAccountKey.json')
+
+# Initialize the app with a service account, granting admin privileges
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://userddata.firebaseio.com'
+})
+
+# Import database module.
+from firebase_admin import db, initialize_app, credentials
 
 # Get a database reference to our blog.
 ref = db.reference('server/saving-data/fireblog')
