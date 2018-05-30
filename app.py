@@ -33,7 +33,9 @@ ref = db.reference('test')
 def uploadNewReadings(pressure, temp, humidity):
     # A post entry.
     print('current readings are:')
-    currentDate = str(datetime.datetime.utcnow())
+    currentDate = str(datetime.datetime.utcnow().replace(microsecond=0).isoformat())
+
+    print('updating the ref')
     newRef = ref.child(currentDate)
 
     postData = {
@@ -44,7 +46,7 @@ def uploadNewReadings(pressure, temp, humidity):
 
     #  Get a key for a new Post.
     # newPostKey = ref.push().key
-
+    print('now will update the data')
     return newRef.set(postData)
 
 @scheduler.scheduled_job('interval', seconds=10)
