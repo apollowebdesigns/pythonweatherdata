@@ -29,7 +29,7 @@ ref = db.reference('test')
 
 # ref.set([])
 
-@scheduler.scheduled_job('interval', seconds=10)
+@scheduler.scheduled_job('interval', minutes=2)
 def uploadNewReadings():
     sense.clear()
     pressure = sense.get_pressure()
