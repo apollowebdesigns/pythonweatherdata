@@ -28,27 +28,26 @@ ref = db.reference('test')
 #     'humidity': str(humidity)
 # })
 
-ref.set([])
+# ref.set([])
 
 def uploadNewReadings(pressure, temp, humidity):
     # A post entry.
     print('current readings are:')
-    print(ref.get())
+    newRef = ref.child(str(datetime.datetime.utcnow()))
 
     postData = {
-        'time': str(datetime.datetime.utcnow()),
         'pressure': str(pressure),
         'temperature': str(temp),
         'humidity': str(humidity)
     }
 
     #  Get a key for a new Post.
-    newPostKey = ref.push().key
+    # newPostKey = ref.push().key
 
-    return ref.update(postData)
+    return newRef.set(postData)
 
-# @scheduler.scheduled_job('interval', seconds=10)
-# def runner():
-#     return uploadNewReadings(pressure, temp, humidity)
+@scheduler.scheduled_job('interval', seconds=10)
+def runner():
+    return uploadNewReadings(pressure, temp, humidity)
 
-# scheduler.start()
+scheduler.start()
