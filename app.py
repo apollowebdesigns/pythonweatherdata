@@ -11,10 +11,6 @@ sense = SenseHat()
 sense.clear()
 scheduler = BlockingScheduler()
 
-pressure = sense.get_pressure()
-temp = sense.get_temperature()
-humidity = sense.get_humidity()
-
 # needs to be path to the certificate
 cred = credentials.Certificate('serviceAccountKey.json')
 
@@ -33,7 +29,14 @@ ref = db.reference('test')
 
 # ref.set([])
 
-def uploadNewReadings(pressure, temp, humidity):
+@scheduler.scheduled_job('interval', seconds=10)
+def uploadNewReadings():
+    sense.clear()
+    pressure = sense.get_pressure()
+    temp = sense.get_temperature()
+    humidity = sense.get_humidity()
+    sense.clear()
+
     send_url = 'http://freegeoip.net/json'
     r = requests.get(send_url)
     j = json.loads(r.text)
@@ -59,9 +62,5 @@ def uploadNewReadings(pressure, temp, humidity):
     # newPostKey = ref.push().key
     print('now will update the data')
     return newRef.set(postData)
-
-@scheduler.scheduled_job('interval', seconds=10)
-def runner():
-    return uploadNewReadings(pressure, temp, humidity)
 
 scheduler.start()
