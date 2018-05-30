@@ -28,6 +28,8 @@ ref = db.reference('test')
 #     'humidity': str(humidity)
 # })
 
+ref.set([])
+
 def uploadNewReadings(pressure, temp, humidity):
     # A post entry.
     print('current readings are:')
@@ -45,8 +47,8 @@ def uploadNewReadings(pressure, temp, humidity):
 
     return ref.update(postData)
 
-@scheduler.scheduled_job('interval', seconds=10)
-def runner():
-    return uploadNewReadings(pressure, temp, humidity)
+# @scheduler.scheduled_job('interval', seconds=10)
+# def runner():
+#     return uploadNewReadings(pressure, temp, humidity)
 
-scheduler.start()
+# scheduler.start()
