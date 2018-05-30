@@ -33,7 +33,8 @@ ref = db.reference('test')
 def uploadNewReadings(pressure, temp, humidity):
     # A post entry.
     print('current readings are:')
-    newRef = ref.child(str(datetime.datetime.utcnow()))
+    currentDate = str(datetime.datetime.utcnow())
+    newRef = ref.child(currentDate)
 
     postData = {
         'pressure': str(pressure),
