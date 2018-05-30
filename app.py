@@ -3,6 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 from sense_hat import SenseHat
 import datetime
+from apscheduler.schedulers.blocking import BlockingScheduler
 sense = SenseHat()
 sense.clear()
 
@@ -20,13 +21,13 @@ firebase_admin.initialize_app(cred, {
 
 # Get a database reference to our blog.
 ref = db.reference('test')
-ref.set({
-    'pressure': str(pressure),
-    'temperature': str(temp),
-    'humidity': str(humidity)
-})
+# ref.set({
+#     'pressure': str(pressure),
+#     'temperature': str(temp),
+#     'humidity': str(humidity)
+# })
 
-def writeNewPost(uid, username, picture, title, body):
+def uploadNewReadings(pressure, temp, humidity):
     # A post entry.
     postData = {
         'time': str(datetime.datetime.utcnow()),
@@ -39,3 +40,10 @@ def writeNewPost(uid, username, picture, title, body):
     newPostKey = ref.push().key
 
     return ref.update(postData)
+
+def runner():
+    return uploadNewReadings(pressure, temp, humidity)
+
+scheduler = BlockingScheduler()
+scheduler.add_job(runner, 'interval', seconds=10)
+scheduler.start()
