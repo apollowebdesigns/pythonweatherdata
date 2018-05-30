@@ -6,6 +6,7 @@ import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 sense = SenseHat()
 sense.clear()
+scheduler = BlockingScheduler()
 
 pressure = sense.get_pressure()
 temp = sense.get_temperature()
@@ -41,9 +42,8 @@ def uploadNewReadings(pressure, temp, humidity):
 
     return ref.update(postData)
 
+@scheduler.scheduled_job('interval', seconds=10)
 def runner():
     return uploadNewReadings(pressure, temp, humidity)
 
-scheduler = BlockingScheduler()
-scheduler.add_job(runner, 'interval', seconds=10)
 scheduler.start()
