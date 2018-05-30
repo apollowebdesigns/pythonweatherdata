@@ -4,6 +4,9 @@ from firebase_admin import db
 from sense_hat import SenseHat
 import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
+import requests
+import json
+
 sense = SenseHat()
 sense.clear()
 scheduler = BlockingScheduler()
@@ -31,6 +34,12 @@ ref = db.reference('test')
 # ref.set([])
 
 def uploadNewReadings(pressure, temp, humidity):
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+
     # A post entry.
     print('current readings are:')
     currentDate = str(datetime.datetime.utcnow().replace(microsecond=0).isoformat())
@@ -41,7 +50,9 @@ def uploadNewReadings(pressure, temp, humidity):
     postData = {
         'pressure': str(pressure),
         'temperature': str(temp),
-        'humidity': str(humidity)
+        'humidity': str(humidity),
+        'latitude': str(lat),
+        'longitude': str(lon)
     }
 
     #  Get a key for a new Post.
