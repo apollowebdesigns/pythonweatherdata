@@ -22,13 +22,6 @@ firebase_admin.initialize_app(cred, {
 # Get a database reference to our blog.
 ref = db.reference('test')
 latest_ref = db.reference('latest')
-# ref.set({
-#     'pressure': str(pressure),
-#     'temperature': str(temp),
-#     'humidity': str(humidity)
-# })
-
-# ref.set([])
 
 @scheduler.scheduled_job('interval', minutes=2)
 def uploadNewReadings():
@@ -69,7 +62,6 @@ def uploadNewReadings():
     }
 
     #  Get a key for a new Post.
-    # newPostKey = ref.push().key
     print('now will update the data')
     latest_ref.set(latestPostData)
     return newRef.set(postData)
