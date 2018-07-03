@@ -32,7 +32,7 @@ def uploadNewReadings():
 
     sense.set_rotation(-180)
 
-    sense.show_message("%.1f C" % temp, scroll_speed=0.10, text_colour=[0, 255, 0])
+    sense.show_message("Temp is %.1f C" % temp, scroll_speed=0.10, text_colour=[255, 0, 255])
 
     sense.clear()
 
