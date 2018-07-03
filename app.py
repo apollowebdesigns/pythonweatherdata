@@ -30,7 +30,7 @@ def uploadNewReadings():
     temp = sense.get_temperature()
     humidity = sense.get_humidity()
 
-    sense.set_rotation(-180)
+    sense.set_rotation(270)
 
     sense.show_message("Temp is %.1f C" % temp, scroll_speed=0.10, text_colour=[255, 0, 255])
 
