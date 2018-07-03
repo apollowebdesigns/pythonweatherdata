@@ -29,6 +29,11 @@ def uploadNewReadings():
     pressure = sense.get_pressure()
     temp = sense.get_temperature()
     humidity = sense.get_humidity()
+
+    sense.set_rotation(180)
+
+    sense.show_message("%.1f C" % temp, scroll_speed=0.10, text_colour=[0, 255, 0])
+
     sense.clear()
 
     send_url = 'http://freegeoip.net/json'
