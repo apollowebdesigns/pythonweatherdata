@@ -30,17 +30,17 @@ def uploadNewReadings():
     temp = sense.get_temperature()
     humidity = sense.get_humidity()
 
-    sense.set_rotation(270)
+    # sense.set_rotation(270)
 
     # sense.show_message("Temp is %.1f C" % temp, scroll_speed=0.10, text_colour=[255, 0, 255])
 
     sense.clear()
 
-    send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
-    j = json.loads(r.text)
-    lat = j['latitude']
-    lon = j['longitude']
+    # send_url = 'http://freegeoip.net/json'
+    # r = requests.get(send_url)
+    # j = json.loads(r.text)
+    # lat = j['latitude']
+    # lon = j['longitude']
 
     # A post entry.
     print('current readings are:')
