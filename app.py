@@ -53,17 +53,13 @@ def uploadNewReadings():
         'datetime': currentDate,
         'pressure': str(pressure),
         'temperature': str(temp),
-        'humidity': str(humidity),
-        'latitude': str(lat),
-        'longitude': str(lon)
+        'humidity': str(humidity)
     }
 
     postData = {
         'pressure': str(pressure),
         'temperature': str(temp),
-        'humidity': str(humidity),
-        'latitude': str(lat),
-        'longitude': str(lon)
+        'humidity': str(humidity)
     }
 
     #  Get a key for a new Post.
