@@ -6,6 +6,7 @@ import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 import json
+from time import sleep
 
 sense = SenseHat()
 sense.clear()
@@ -34,7 +35,33 @@ def uploadNewReadings():
 
     # sense.show_message("Temp is %.1f C" % temp, scroll_speed=0.10, text_colour=[255, 0, 255])
 
+    blue = (0, 0, 255)
+    white = (255, 255, 255)
+
+    sense.set_pixel(0, 4, white)
+    sense.set_pixel(7, 4, white)
+    sense.set_pixel(0, 3, white)
+    sense.set_pixel(7, 3, white)
+    sense.set_pixel(1, 2, white)
+    sense.set_pixel(6, 2, white)
+    sense.set_pixel(2, 3, white)
+    sense.set_pixel(5, 3, white)
+    sense.set_pixel(2, 2, white)
+    sense.set_pixel(5, 2, white)
+    sense.set_pixel(3, 1, white)
+    sense.set_pixel(4, 1, white)
+    for x in range(1, 7):
+        sense.set_pixel(x, 5, white)
+
+    sense.set_pixel(1, 6, blue)
+    sense.set_pixel(0, 7, blue)
+    sense.set_pixel(3, 6, blue)
+    sense.set_pixel(2, 7, blue)
+    sense.set_pixel(5, 6, blue)
+    sense.set_pixel(4, 7, blue)
+    sleep(5)
     sense.clear()
+    
 
     # send_url = 'http://freegeoip.net/json'
     # r = requests.get(send_url)
