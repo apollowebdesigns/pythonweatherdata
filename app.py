@@ -1,3 +1,4 @@
+import os
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -7,6 +8,10 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 import json
 from time import sleep
+
+def measure_temp():
+        temp = os.popen("vcgencmd measure_temp").readline()
+        return (temp.replace("temp=",""))
 
 sense = SenseHat()
 sense.clear()
@@ -80,7 +85,8 @@ def uploadNewReadings():
         'datetime': currentDate,
         'pressure': str(pressure),
         'temperature': str(temp),
-        'humidity': str(humidity)
+        'humidity': str(humidity),
+        'pitemperature': str(measure_temp())
     }
 
     postData = {
