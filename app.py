@@ -92,7 +92,8 @@ def uploadNewReadings():
     postData = {
         'pressure': str(pressure),
         'temperature': str(temp),
-        'humidity': str(humidity)
+        'humidity': str(humidity),
+        'pitemperature': str(measure_temp())
     }
 
     #  Get a key for a new Post.
