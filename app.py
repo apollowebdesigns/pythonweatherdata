@@ -1,4 +1,5 @@
 import os
+import random
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
@@ -8,6 +9,10 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 import json
 from time import sleep
+
+blue = (0, 0, 255)
+white = (255, 255, 255)
+yellow = (255,255,0)
 
 def measure_temp():
         temp = os.popen("vcgencmd measure_temp").readline()
@@ -29,21 +34,7 @@ firebase_admin.initialize_app(cred, {
 ref = db.reference('test')
 latest_ref = db.reference('latest')
 
-@scheduler.scheduled_job('interval', minutes=2)
-def uploadNewReadings():
-    sense.clear()
-    pressure = sense.get_pressure()
-    temp = sense.get_temperature()
-    humidity = sense.get_humidity()
-
-    # sense.set_rotation(270)
-
-    # sense.show_message("Temp is %.1f C" % temp, scroll_speed=0.10, text_colour=[255, 0, 255])
-
-    blue = (0, 0, 255)
-    white = (255, 255, 255)
-    yellow = (255,255,0)
-
+def create_cloud():
     sense.set_pixel(0, 4, white)
     sense.set_pixel(7, 4, white)
     sense.set_pixel(0, 3, white)
@@ -68,6 +59,7 @@ def uploadNewReadings():
     sleep(5)
     sense.clear()
 
+def create_sun():
     # creating the sun
     sense.set_pixel(2, 3, yellow)
     sense.set_pixel(2, 4, yellow)
@@ -107,11 +99,20 @@ def uploadNewReadings():
     sleep(5)
     sense.clear()
 
-    # send_url = 'http://freegeoip.net/json'
-    # r = requests.get(send_url)
-    # j = json.loads(r.text)
-    # lat = j['latitude']
-    # lon = j['longitude']
+@scheduler.scheduled_job('interval', minutes=2)
+def uploadNewReadings():
+    sense.clear()
+    pressure = sense.get_pressure()
+    temp = sense.get_temperature()
+    humidity = sense.get_humidity()
+
+    # Randomly decide what image to use
+    what_to_use = random.randint(1,10)
+
+    if what_to_use < 5:
+        create_cloud()
+    else:
+        create_sun()
 
     # A post entry.
     print('current readings are:')
@@ -135,7 +136,6 @@ def uploadNewReadings():
         'pitemperature': str(measure_temp())
     }
 
-    #  Get a key for a new Post.
     print('now will update the data')
     latest_ref.set(latestPostData)
     return newRef.set(postData)
