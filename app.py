@@ -113,6 +113,10 @@ def create_corner_cloud():
     for i in range(0, 1):
         sense.set_pixel(i, 3, yellow)
 
+    # cleanup
+    sleep(5)
+    sense.clear()
+
 @scheduler.scheduled_job('interval', minutes=2)
 def uploadNewReadings():
     sense.clear()
