@@ -99,6 +99,20 @@ def create_sun():
     sleep(5)
     sense.clear()
 
+def create_corner_cloud():
+    # Creating the corner of the cloud
+    for i in range(0, 4):
+        sense.set_pixel(i, 0, yellow)
+    
+    for i in range(0, 3):
+        sense.set_pixel(i, 1, yellow)
+
+    for i in range(0, 2):
+        sense.set_pixel(i, 2, yellow)
+    
+    for i in range(0, 1):
+        sense.set_pixel(i, 3, yellow)
+
 @scheduler.scheduled_job('interval', minutes=2)
 def uploadNewReadings():
     sense.clear()
