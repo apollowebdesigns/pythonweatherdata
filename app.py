@@ -42,6 +42,7 @@ def uploadNewReadings():
 
     blue = (0, 0, 255)
     white = (255, 255, 255)
+    yellow = (255,255,0)
 
     sense.set_pixel(0, 4, white)
     sense.set_pixel(7, 4, white)
@@ -66,6 +67,20 @@ def uploadNewReadings():
     sense.set_pixel(4, 7, blue)
     sleep(5)
     sense.clear()
+
+    # creating the sun
+    sense.set_pixel(2, 3, yellow)
+    sense.set_pixel(2, 4, yellow)
+    sense.set_pixel(5, 3, yellow)
+    sense.set_pixel(5, 4, yellow)
+    sense.set_pixel(3, 2, yellow)
+    sense.set_pixel(4, 2, yellow)
+    sense.set_pixel(3, 5, yellow)
+    sense.set_pixel(4, 5, yellow)
+    sense.set_pixel(3, 3, yellow)
+    sense.set_pixel(3, 4, yellow)
+    sense.set_pixel(4, 4, yellow)
+    sense.set_pixel(4, 3, yellow)
     
 
     # send_url = 'http://freegeoip.net/json'
