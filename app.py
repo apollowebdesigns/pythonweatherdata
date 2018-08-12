@@ -81,7 +81,31 @@ def uploadNewReadings():
     sense.set_pixel(3, 4, yellow)
     sense.set_pixel(4, 4, yellow)
     sense.set_pixel(4, 3, yellow)
-    
+
+
+    sense.set_pixel(4, 0, yellow)
+    sense.set_pixel(3, 0, yellow)
+    sense.set_pixel(2, 0, yellow)
+    sense.set_pixel(1, 1, yellow)
+    sense.set_pixel(0, 2, yellow)
+    sense.set_pixel(0, 3, yellow)
+    sense.set_pixel(0, 4, yellow)
+    sense.set_pixel(0, 5, yellow)
+    sense.set_pixel(1, 6, yellow)
+    sense.set_pixel(2, 7, yellow)
+    sense.set_pixel(3, 7, yellow)
+    sense.set_pixel(4, 7, yellow)
+    sense.set_pixel(7, 4, yellow)
+    sense.set_pixel(7, 3, yellow)
+    sense.set_pixel(7, 2, yellow)
+    sense.set_pixel(7, 5, yellow)
+    sense.set_pixel(6, 6, yellow)
+    sense.set_pixel(5, 7, yellow)
+    sense.set_pixel(6, 1, yellow)
+    sense.set_pixel(5, 0, yellow)
+
+    sleep(5)
+    sense.clear()
 
     # send_url = 'http://freegeoip.net/json'
     # r = requests.get(send_url)
